@@ -1,0 +1,164 @@
+/* Phase 1: Fluid Scaling System */
+:root {
+  /* This creates a value that grows between 16px and 20px based on screen size */
+  --base-font-size: clamp(1rem, 0.9rem + 0.25vw, 1.25rem);
+  
+  /* Brand Colors from the file */
+  --color-dark: #0d0d0d;
+  --color-light: #f5f5f5;
+  --color-accent: #ffeb3b; /* Example yellow highlight */
+  --color-light-bg : #faf4ec;
+  --color-blue : #0d8dff;
+  --color-green:#33c791;
+  /* Spacing */
+  --section-padding: clamp(4rem, 10vw, 8rem);
+  --nav-height: 80px;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-size: var(--base-font-size);
+  background-color: var( --color-light-bg);
+  color: var(--color-dark);
+  line-height: 1.5;
+  overflow-x: hidden; /* Prevents horizontal scroll bugs during animations */
+}
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 20px 0; 
+  /* The transition that makes it slide smoothly */
+  transition: transform 0.4s ease-in-out;
+}
+
+/* When this class is added via JS, the nav moves up 100% of its height */
+.navbar.hide {
+  transform: translateY(-100%);
+}
+.nav_container {
+  width: 92%;
+  max-width: 1440px;
+  margin: 0 auto;
+  
+  /* This creates the 3-section layout */
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+}
+
+/* Logo Sizing */
+.nav_logo {
+  height: clamp(1.5rem, 2vw, 2rem);
+  display: block;
+}
+
+/* Middle Menu */
+.nav_menu {
+  display: flex;
+  gap: clamp(1rem, 2vw, 2.5rem);
+}
+
+.nav_item {
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  transition: opacity 0.3s ease;
+}
+
+.nav_item:hover {
+  opacity: 0.6;
+}
+
+/* Right Button */
+.btn-nav {
+  padding: 0.6rem 1.4rem;
+  border: 1px solid rgba(244, 244, 244, 0.3);
+  border-radius: 100px;
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+.btn-nav:hover {
+  background-color: var(--text-color);
+  color: var(--bg-color);
+}
+/* Target the SVG specifically */
+.nav_logo-wrapper svg {
+  height: 40px; /* Adjust this to make the logo bigger or smaller */
+  width: auto;  /* Keeps the proportions correct */
+  display: block;
+}
+.hero-section{
+  padding-top: var(--nav-height);
+}
+/* Card container style */
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: -20px; /* Slight negative gap to help the "overlap" feel */
+  perspective: 1200px; /* Gives the 3D depth for the tilt */
+  padding: 100px 20px;
+  
+}
+
+.card {
+  position: relative;
+  width: 280px;
+  height: 380px;
+  border-radius: 24px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  
+  /* The "Initial Tilt" Logic */
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Individual Rotations to make them "fan out" */
+.card:nth-child(1) { transform: rotate(-6deg) translateY(20px); background-color: var(--color-blue); }
+.card:nth-child(2) { transform: rotate(-2deg) translateY(0px); }
+.card:nth-child(3) { transform: rotate(3deg) translateY(10px);background-color: var(--color-green); }
+.card:nth-child(4) { transform: rotate(7deg) translateY(30px); }
+
+/* The Hover Effect: Straighten and Lift */
+.card:hover {
+  transform: rotate(0deg) translateY(-30px) scale(1.05) !important;
+  z-index: 10;
+  border-color: #c5ff4d; /* Use the accent color on hover */
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+/* Video Styling */
+.video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+/* Ensure text stays on top of video */
+.top-text, .bottom-text {
+  position: relative;
+  z-index: 2;
+}
+/* Simple Mobile Logic: Hide middle menu on small screens */
+@media (max-width: 768px) {
+  .nav_menu {
+    display: none;
+  }
+}
