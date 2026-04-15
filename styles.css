@@ -156,6 +156,198 @@ body {
   position: relative;
   z-index: 2;
 }
+.work {
+  background-color: #faf4ec; /* The cream background from the image */
+  padding: 100px 0;
+  color: #1a1a1a;
+  width: 100%;
+}
+
+.work_container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Top Headline */
+.work_top h1 {
+  font-size: clamp(2.5rem, 5vw, 4.5rem); /* Responsive fluid text */
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  margin-bottom: 80px;
+  max-width: 1100px;
+}
+
+/* Bottom Grid */
+.work_bottom {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr; /* Asymmetric layout */
+  gap: 80px;
+  align-items: flex-end; /* Aligns text to bottom of image */
+}
+
+.work_image-wrapper img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 20px; /* Matching the rounded corners in image */
+  display: block;
+}
+
+.work_content p {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  margin-bottom: 30px;
+  font-weight: 500;
+  max-width: 450px;
+}
+
+/* The Button Styling */
+.btn-swoosh {
+  display: inline-flex;
+  align-items: center;
+  gap: 15px;
+  padding: 8px 8px 8px 24px;
+  border: 1px solid #1a1a1a;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #1a1a1a;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.btn-icon {
+  width: 35px;
+  height: 35px;
+  background-color: #1a1a1a;
+  color: #faf4ec;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon svg {
+  width: 18px;
+}
+
+/* button animation */
+.btn-swoosh {
+  /* ... your existing styles ... */
+  display: inline-flex;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  transform-style: preserve-3d; /* Tells the browser this is a 3D object */
+  perspective: 1000px;
+}
+
+.btn-swoosh:hover {
+  
+  
+  /* translateY(-5px): Lifts it up
+     rotateX(10deg): Tilts the top away from you
+     rotateY(5deg): Tilts the left side toward you
+  */
+ transform: translateY(-10px) rotateX(-20deg) rotateY(0deg) rotateZ(-7deg);
+  
+  /* Adds a shadow that moves with the tilt to sell the 3D effect */
+  box-shadow: -5px 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Also move the icon slightly more to exaggerate the depth */
+.btn-swoosh:hover .btn-icon {
+  
+  transform: translateZ(20px); /* Moves the arrow "closer" to the user */
+  transform: translateY(-1px) rotateX(-10deg) rotateY(0deg) rotateZ(-5deg);
+}
+
+
+
+/* card animation for expertise section */
+.expertise_section {
+  padding: 5vh 0;
+  background-color: #faf4ec;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10vh; /* Space between cards as you scroll */
+}
+
+.expertise_card {
+  position: sticky;
+  top: 10vh; /* Where the card "sticks" */
+  width: 90%;
+  max-width: 1200px;
+  min-height: 500px;
+  border-radius: 30px;
+  padding: 60px;
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+  box-shadow: 0 -10px 30px rgba(0,0,0,0.05);
+  
+  /* Stack order logic */
+  margin-bottom: 30vh; 
+}
+
+/* Colors from your image */
+.card-white { background-color: #ffffff; color: #1a1a1a; }
+.card-pink { background-color: #f8c3eb; color: #1a1a1a; }
+/* Add your new colors */
+.card-blue { background-color: #c3d8f8; color: #1a1a1a; }
+.card-green { background-color: #d2f8c3; color: #1a1a1a; }
+
+/* The Layering Logic (Crucial!) */
+.expertise_card:nth-child(1) { z-index: 1; }
+.expertise_card:nth-child(2) { z-index: 2; }
+.expertise_card:nth-child(3) { z-index: 3; }
+.expertise_card:nth-child(4) { z-index: 4; }
+/* The Number in the background */
+.card_number {
+  position: absolute;
+  top: 20px;
+  right: 60px;
+  font-size: 8rem;
+  font-weight: 800;
+
+}
+
+.tag {
+  display: inline-block;
+  padding: 5px 15px;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 5px;
+  font-size: 0.8rem;
+  margin-bottom: 20px;
+  background: white;
+}
+
+.card_title {
+  font-size: 5rem;
+  letter-spacing: -2px;
+  margin-bottom: 40px;
+}
+
+/* Rounded image style from the image */
+.card_media img {
+  width: 350px;
+  height: 450px;
+  object-fit: cover;
+  border-radius: 25px;
+  border: 8px solid white; /* The thick white border in the image */
+  transform: rotate(2deg); /* Slight organic tilt */
+}
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .work_bottom {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .work_top h1 {
+    font-size: 2rem;
+  }
+}
 /* Simple Mobile Logic: Hide middle menu on small screens */
 @media (max-width: 768px) {
   .nav_menu {

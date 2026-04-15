@@ -32,3 +32,18 @@ window.addEventListener('scroll', () => {
     nav.style.borderBottom = "none";
   }
 });
+
+gsap.utils.toArray(".expertise_card").forEach((card, i) => {
+  gsap.to(card, {
+    scale: 0.9,
+    opacity: 1,
+    scrollTrigger: {
+      trigger: card,
+      start: "top 10%", // When the card is sticky
+      endTrigger: ".expertise_section",
+      end: "bottom bottom",
+      scrub: true,
+      pinSpacing: false,
+    }
+  });
+});
