@@ -35,7 +35,7 @@ window.addEventListener('scroll', () => {
 
 gsap.utils.toArray(".expertise_card").forEach((card, i) => {
   gsap.to(card, {
-    scale: 0.9,
+    scale: 1,
     opacity: 1,
     scrollTrigger: {
       trigger: card,
@@ -45,5 +45,25 @@ gsap.utils.toArray(".expertise_card").forEach((card, i) => {
       scrub: true,
       pinSpacing: false,
     }
+  });
+});
+const workCards = document.querySelectorAll('.work-card');
+
+workCards.forEach(card => {
+  const video = card.querySelector('video');
+
+  card.addEventListener('mouseenter', () => {
+    // 1. Play the video
+    video.play();
+  });
+
+  card.addEventListener('mouseleave', () => {
+    // 2. Pause the video
+    video.pause();
+    
+    // 3. This is the magic part:
+    // Calling .load() resets the video element entirely, 
+    // which forces the 'poster' image to show up again.
+    video.load(); 
   });
 });
