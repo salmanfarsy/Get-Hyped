@@ -274,28 +274,131 @@ body {
 }
 
 .expertise_card {
-  position: sticky;
-  top: 10vh; /* Where the card "sticks" */
-  width: 90%;
-  max-width: 1200px;
-  min-height: 500px;
-  border-radius: 30px;
-  padding: 60px;
   display: flex;
   justify-content: space-between;
-  overflow: hidden;
-  box-shadow: 0 -10px 30px rgba(0,0,0,0.05);
-  
-  /* Stack order logic */
-  margin-bottom: 30vh; 
+  background-color: #fff;
+  border-radius: 40px;
+  padding: 80px;
+  min-height: 600px;
+  position: sticky;
+  top: 50px;
+  margin-bottom: 15vh;
 }
 
-/* Colors from your image */
-.card-white { background-color: #ffffff; color: #1a1a1a; }
-.card-pink { background-color: #f8c3eb; color: #1a1a1a; }
-/* Add your new colors */
-.card-blue { background-color: #c3d8f8; color: #1a1a1a; }
-.card-green { background-color: #d2f8c3; color: #1a1a1a; }
+/* Left Content Styling */
+.card_left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 600px;
+}
+
+.card_title {
+  font-size: 5.5rem;
+  font-weight: 800;
+  letter-spacing: -3px;
+  margin: 20px 0;
+}
+
+.card_body h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.card_body p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 40px;
+  max-width: 450px;
+}
+
+/* Right Side: Video & Number */
+.card_right {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.card_number {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  font-size: 10rem;
+  font-weight: 900;
+  color: #f0f0f0; /* Very light grey as seen in image */
+  line-height: 1;
+  z-index: 1;
+}
+
+.video_wrapper {
+  position: relative;
+  z-index: 2;
+  border: 10px solid #ff5722; /* Bold orange border */
+  border-radius: 30px;
+  overflow: hidden;
+  width: 350px;
+  height: 450px;
+  transform: rotate(3deg); /* The "Organic" tilt */
+}
+
+.card_video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* The Orange Button */
+.btn-orange {
+  display: inline-flex;
+  align-items: center;
+  background-color: #ff5722;
+  color: white;
+  padding: 12px 12px 12px 25px;
+  border-radius: 100px;
+  text-decoration: none;
+  font-weight: 600;
+  gap: 15px;
+  transition: transform 0.3s ease;
+}
+
+.btn-arrow {
+  background-color: white;
+  color: #ff5722;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.btn-orange:hover {
+  transform: scale(1.05);
+}
+.card-white { --card-bg: #ffffff; background-color: var(--card-bg); }
+.card-pink  { --card-bg: #f8e1f4; background-color: var(--card-bg); }
+.card-blue  { --card-bg: #e1f0f8; background-color: var(--card-bg); }
+.card-green { --card-bg: #e1f8e6; background-color: var(--card-bg); }
+/* Card Background Colors */
+.card-pink { background-color: #f8e1f4; }
+.card-blue { background-color: #e1f0f8; }
+.card-green { background-color: #e1f8e6; }
+
+/* If you want the video borders to change per card: */
+.border-pink { border-color:var(--color-light); }
+.border-blue { border-color:var(--color-light); }
+.border-green { border-color:var(--color-light); }
+
+/* Keep the orange button consistent across all cards for better UX */
+.btn-orange {
+  background-color: #ff5722; 
+  /* ... rest of your existing button CSS ... */
+}
 
 /* The Layering Logic (Crucial!) */
 .expertise_card:nth-child(1) { z-index: 1; }
@@ -309,7 +412,7 @@ body {
   right: 60px;
   font-size: 8rem;
   font-weight: 800;
-
+color: color-mix(in srgb, var(--card-bg), black 10%);
 }
 
 .tag {
