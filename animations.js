@@ -182,3 +182,29 @@ Draggable.create(track, {
     scrollTween.play();
   }
 });
+// this is for the nav menu animation
+
+const navItems = document.querySelectorAll('.nav_item');
+
+navItems.forEach(item => {
+  const wrapper = item.querySelector('.nav_item-wrapper');
+  
+  item.addEventListener('mouseenter', () => {
+    // Kill any running animation to prevent fighting
+    gsap.to(wrapper, {
+      y: -48,
+      duration: 0.5,
+      ease: "back.out(1.7)",
+      overwrite: true // Ensures smooth transition if you hover quickly
+    });
+  });
+
+  item.addEventListener('mouseleave', () => {
+    gsap.to(wrapper, {
+      y: 0,
+      duration: 0.5,
+      ease: "back.out(1.7)", // Now it bounces at the bottom too!
+      overwrite: true
+    });
+  });
+});

@@ -5,7 +5,7 @@
   
   /* Brand Colors from the file */
   --color-dark: #0d0d0d;
-  --color-light: #f5f5f5;
+  --color-light: #ffffff;
   --color-accent: #ffeb3b; /* Example yellow highlight */
   --color-light-bg : #faf4ec;
   --color-blue : #0d8dff;
@@ -65,20 +65,59 @@ body {
 .nav_menu {
   display: flex;
   gap: clamp(1rem, 2vw, 2.5rem);
+  background-color:var(--color-light) ;
+  padding: 10px;
+  border-radius: 10px;
 }
 
 .nav_item {
   color: var(--text-color);
   text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: 0.8rem;
+  font-weight: 600;
   letter-spacing: 0.05em;
   transition: opacity 0.3s ease;
 }
 
-.nav_item:hover {
+/* .nav_item:hover {
   opacity: 0.6;
+} */
+
+
+/* --------------Nav Link Animation--------------- */
+.nav_item {
+  display: inline-block;
+  background-color: #ffffff;
+  border-radius: 14px;
+  text-decoration: none;
+  overflow: hidden; 
+  height: 48px; 
+  position: relative;
 }
+
+.nav_item-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  /* No CSS transition here! */
+}
+
+.nav_item-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 24px;
+  color: #000000;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.hover-text {
+  background-color: #000000;
+  color: #ffffff;
+}
+/* --------------Nav Link Animation--------------- */
 
 /* Right Button */
 .btn-nav {
