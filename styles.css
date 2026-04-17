@@ -559,61 +559,183 @@ color: color-mix(in srgb, var(--card-bg), black 10%);
 /* 6. The Slanted Overlay */
 .card-overlay {
   position: absolute;
-  bottom: -1px; /* Prevents tiny gaps */
+  bottom: -1px;
   left: -1px;
   right: -1px;
   background-color: var(--card-color);
-  padding: 40px 25px 25px 25px;
-  color: white;
   
-  /* This creates the sharp slanted cut */
-  clip-path: polygon(0 25%, 100% 0, 100% 100%, 0 100%);
+  /* Reduced padding to shrink the height */
+  padding: 35px 20px 20px 20px; 
+  color: white;
+  z-index: 1; /* Sits below the arrow */
+  
+  /* The Slant */
+  clip-path: polygon(0 20%, 100% 0, 100% 100%, 0 100%);
 }
 
 .card-overlay h3 {
-  font-size: 1.4rem;
+  font-size: 1.25rem; /* Slightly smaller to fit shrunken box */
   font-weight: 700;
   line-height: 1.2;
-  margin-bottom: 12px;
-  max-width: 90%;
+  margin-bottom: 10px;
 }
 
-.card-overlay .tag {
-  display: inline-block;
-  background: rgba(255, 255, 255, 0.25);
-  padding: 5px 12px;
-  border-radius: 8px;
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-/* 7. The Floating Arrow Icon */
+/* 2. The Arrow - No longer cut! */
 .arrow-icon {
   position: absolute;
-  top: -20px; /* Positions it exactly on the diagonal cut */
+  /* Adjust these two to move the arrow along the slant line */
+  bottom: 105px; /* Adjust based on your card height */
   right: 20px;
-  width: 45px;
-  height: 45px;
+  
+  width: 42px;
+  height: 42px;
   background: white;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: black;
+  font-size: 1.1rem;
   font-weight: bold;
-  font-size: 1.2rem;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  
+  z-index: 2; /* Sits ABOVE the clip-path */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   transition: transform 0.3s ease;
 }
-
+.card-overlay .tag {
+ display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
 /* 8. Hover Animations */
 
 .work-card:hover .arrow-icon {
   transform: scale(1.1) rotate(45deg);
 }
 
+
+
+/* lets see how this goes xxxxxxxxxxxxxxxxxxxxxxxx */
+.card-overlay {
+  position: absolute;
+  /* 1. Positioning it away from the edges */
+  bottom: 20px; 
+  left: 15px;
+  right: 15px; /* This effectively sets the width by giving it 'margin' from the sides */
+  
+  /* 2. Shrinking the height */
+  height: auto; /* Let the content decide height, or set to e.g., 100px */
+  padding: 25px 15px 15px 15px;
+  
+  background-color: var(--card-color);
+  color: white;
+  z-index: 1;
+
+  /* 3. Rounding the corners so it looks like a separate piece */
+  border-radius: 20px;
+
+  /* 4. The Slant */
+  clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+/* 5. Fixing the Arrow position to stay with the floating box */
+.arrow-icon {
+  position: absolute;
+  /* We anchor it relative to the floating box */
+  bottom: 110px; /* Adjust this so it sits on the floating slant */
+  right: 30px;
+  
+  width: 35px;
+  height: 35px;
+  background: white;
+  border-radius: 50%;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+
+/* ----------------the Brand scrolling bar animation---------------------- */
+.Brands {
+  background-color: #faf4ec;
+  padding: 100px 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.Brands h2 {
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-weight: 800;
+  line-height: 0.95;
+  color: #1a1a1a;
+  margin-left: 5%;
+  margin-bottom: 60px;
+  letter-spacing: -2px;
+}
+
+.logo-marquee-wrapper {
+  cursor: grab;
+  overflow: hidden; /* Keep this! It's the "window" */
+  display: block;   /* Change from flex to block to avoid flex-child shrinking */
+  width: 100%;
+  user-select: none;
+  position: relative;
+}
+
+.logo-track {
+  display: flex;
+  gap: 40px;
+  width: max-content; /* Critical: Allows the track to expand past the screen */
+  will-change: transform;
+}
+
+.logo-marquee-wrapper:active {
+  cursor: grabbing;
+}
+/* Stops animation when dragging/hovering */
+/* .logo-marquee-wrapper:hover .logo-track {
+  animation-play-state: paused;
+} */
+
+.logo-item {
+  min-width: 250px;
+  height: 250px;
+  background: transparent;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.logo-item img {
+  width: 100%;
+  max-width: 180px;
+  height: auto;
+  object-fit: contain;
+  transition: filter 0.3s ease;
+}
+
+.logo-item:hover img {
+  filter: grayscale(0);
+}
+
+@keyframes scrollMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-50% - 10px)); } /* Moves halfway through the double track */
+}
+/* ----------------the Brand scrolling bar animation---------------------- */
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   .work_bottom {
