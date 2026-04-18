@@ -66,7 +66,7 @@ body {
   display: flex;
   gap: clamp(1rem, 2vw, 2.5rem);
   background-color:var(--color-light) ;
-  padding: 10px;
+  padding: 0px;
   border-radius: 10px;
 }
 
@@ -107,10 +107,10 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 48px;
-  padding: 0 24px;
+  padding: 0 10px;
   color: #000000;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 0.7rem;
 }
 
 .hover-text {
@@ -118,21 +118,138 @@ body {
   color: #ffffff;
 }
 /* --------------Nav Link Animation--------------- */
-
-/* Right Button */
-.btn-nav {
-  padding: 0.6rem 1.4rem;
-  border: 1px solid rgba(244, 244, 244, 0.3);
-  border-radius: 100px;
-  color: var(--text-color);
-  text-decoration: none;
-  font-size: 0.85rem;
-  transition: all 0.3s ease;
+/* -----------------Humbermenu--------------------- */
+/* --- Desktop Defaults --- */
+.menu-toggle {
+  display: none; /* Hidden on desktop */
+  width: 44px;
+  height: 44px;
+  background-color: #f8b4f4; /* Pink Dot */
+  border: none;
+  border-radius: 12px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  padding: 0;
 }
 
+.menu-toggle span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background-color: #000;
+  transition: 0.3s;
+}
+
+/* --- Mobile Logic (Under 768px) --- */
+@media (max-width: 991px) {
+  /* Hide the links and the original Get Results button */
+  .nav_menu, 
+  .nav_actions .btn-nav {
+    display: none !important;
+  }
+
+  /* Show the pink hamburger */
+  .menu-toggle {
+    display: flex;
+  }
+  
+  .nav_container {
+    justify-content: space-between; /* Keeps Logo left, Hamburger right */
+  }
+}
+/* Update your .full-menu CSS to this */
+.full-menu {
+  position: fixed;
+  /* Centering Logic */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  
+  /* Sizing - Adjust these to your liking */
+  width: 90%;          /* Leaves a 5% gap on each side */
+  max-width: 400px;    /* Prevents it from getting too wide on tablets */
+  height: auto;        /* Let the content define the height */
+  max-height: 85vh;    /* Prevents it from cutting off on short phones */
+  
+  /* Styling */
+  background-color: #f8b4f4; 
+  border-radius: 40px; /* High rounding to match the "Hype" aesthetic */
+  padding: 60px 20px;
+  z-index: 9999;
+  
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  /* GSAP initial state */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.close-menu {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.nav_menu-vertical {
+  display: flex;
+  flex-direction: column; /* This is the magic line */
+  align-items: center;    /* Centers them horizontally */
+  justify-content: center; /* Centers the stack vertically in the pink screen */
+  gap: 20px;              /* Adds breathing room between buttons */
+  width: 100%;
+  height: auto;
+}
+
+/* Optional: Make the buttons a bit wider on mobile for easier clicking */
+.nav_menu-vertical .nav_item {
+  width: 200px;
+  text-align: center;
+}
+/* -----------------Humbermenu--------------------- */
+/* Right Button */
+.btn-nav {
+  display: inline-flex;
+  align-items: center;
+  background-color: #f8b4f4; /* That specific soft pink/purple */
+  color: #1a1a1a;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 5px; /* More padding on left, tight on right */
+  border-radius: 10px; /* High rounding for the pill shape */
+  gap: 12px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.btn-nav .btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff; /* The white square background */
+  width: 30px;
+  height: 30px;
+  border-radius: 5px; /* Slightly less rounded than the main button */
+  font-size: 1.2rem;
+}
+
+/* Hover effect to keep it feeling alive */
 .btn-nav:hover {
-  background-color: var(--text-color);
-  color: var(--bg-color);
+  background-color: #f49ce9; /* Slightly deeper pink on hover */
+  transform: translateY(-2px);
 }
 /* Target the SVG specifically */
 .nav_logo-wrapper svg {
@@ -142,6 +259,21 @@ body {
 }
 .hero-section{
   padding-top: var(--nav-height);
+}
+
+.hero-section h1{
+      font-size: 4rem;
+    width: 50%;
+    margin: 40px;
+}
+.hero-section h2{
+      font-size: 1.5rem;
+    width: 25%;
+    margin: 0px 40px;
+}
+.card h2{
+  font-size: 4rem;
+  margin: 0;
 }
 /* Card container style */
 .card-container {
@@ -159,7 +291,7 @@ body {
   width: 280px;
   height: 380px;
   border-radius: 24px;
-  padding: 30px;
+  padding: 5px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -169,7 +301,13 @@ body {
   /* The "Initial Tilt" Logic */
   transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
 }
-
+.card .bottom-text{
+  padding: 10px;
+}
+.card .bottom-text h3{
+border-bottom: 1px solid black;
+padding: 2px;
+}
 /* Individual Rotations to make them "fan out" */
 .card:nth-child(1) { transform: rotate(-6deg) translateY(20px); background-color: var(--color-blue); }
 .card:nth-child(2) { transform: rotate(-2deg) translateY(0px); }
@@ -215,27 +353,29 @@ body {
 
 /* Top Headline */
 .work_top h1 {
-  font-size: clamp(2.5rem, 5vw, 4.5rem); /* Responsive fluid text */
+  font-size: clamp(2.5rem, 4vw, 4.5rem); /* Responsive fluid text */
   line-height: 1.1;
   letter-spacing: -0.03em;
   font-weight: 700;
-  margin-bottom: 80px;
-  max-width: 1100px;
+  max-width: 850px;
+  margin-left: 100px;
+
 }
 
 /* Bottom Grid */
 .work_bottom {
   display: grid;
   grid-template-columns: 1fr 1.2fr; /* Asymmetric layout */
-  gap: 80px;
+  /* gap: 80px; */
   align-items: flex-end; /* Aligns text to bottom of image */
 }
 
 .work_image-wrapper img {
   width: 100%;
-  max-width: 400px;
+  max-width: 200px;
   border-radius: 20px; /* Matching the rounded corners in image */
   display: block;
+  margin: 20px;
 }
 
 .work_content p {
@@ -347,7 +487,9 @@ body {
      without breaking the layout */
   overflow: hidden;
 }
-
+.expertise_card .btn-swoosh{
+  background-color: var(--color-light-bg);
+}
 /* Left Content Styling */
 .card_left {
   flex: 1;
@@ -416,25 +558,24 @@ body {
 }
 
 /* The Orange Button */
-.btn-orange {
-  display: inline-flex;
+.btn-orange {display: inline-flex;
   align-items: center;
-  background-color: #ff5722;
-  color: white;
-  padding: 12px 12px 12px 25px;
-  border-radius: 100px;
-  text-decoration: none;
-  font-weight: 600;
   gap: 15px;
-  transition: transform 0.3s ease;
+  padding: 8px 8px 8px 24px;
+  border-radius: 10px;
+  text-decoration: none;
+  color:var(--color-light-bg);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
 }
 
 .btn-arrow {
   background-color: white;
-  color: #ff5722;
+  color:black;
   width: 30px;
   height: 30px;
-  border-radius: 50%;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -554,7 +695,7 @@ color: color-mix(in srgb, var(--card-bg), black 10%);
 
 .work-grid {
   display: flex;
-  gap: 25px;
+  gap: 50px;
   align-items: flex-start;
   max-width: 1300px;
   margin: 0 auto;
@@ -617,6 +758,9 @@ color: color-mix(in srgb, var(--card-bg), black 10%);
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 10px;
+  color: var(--color-light-bg);
+  width: 70%;
+  padding-top: 10px;
 }
 
 /* 2. The Arrow - No longer cut! */
@@ -649,13 +793,14 @@ color: color-mix(in srgb, var(--card-bg), black 10%);
   font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
+  width: 25%;
 }
 /* 8. Hover Animations */
 
 .work-card:hover .arrow-icon {
   transform: scale(1.1) rotate(45deg);
 }
-
+/* ---------bit of work card animation--------- */
 
 
 /* lets see how this goes xxxxxxxxxxxxxxxxxxxxxxxx */
@@ -689,8 +834,8 @@ color: color-mix(in srgb, var(--card-bg), black 10%);
 .arrow-icon {
   position: absolute;
   /* We anchor it relative to the floating box */
-  bottom: 110px; /* Adjust this so it sits on the floating slant */
-  right: 30px;
+  bottom: 135px; /* Adjust this so it sits on the floating slant */
+  right: 20px;
   
   width: 35px;
   height: 35px;
@@ -838,7 +983,15 @@ color: color-mix(in srgb, var(--card-bg), black 10%);
   display: flex;
   gap: 80px;
 }
-
+/* ------------footer logo animation--------------- */
+.trail-logo {
+  position: absolute;
+  width: 10%; /* Adjust size */
+  pointer-events: none;
+  z-index: 10;
+  transform: translate(-50%, -50%); /* Keeps it centered on cursor */
+}
+/* ------------footer logo animation--------------- */
 .nav-links {
   display: flex;
   gap: 10px;

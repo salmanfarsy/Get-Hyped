@@ -1,12 +1,16 @@
 window.addEventListener("DOMContentLoaded", () => {
     // This targets the cards as they are
     gsap.from(".card", {
-        y: 100,              // Slide up from 100px lower than their CSS position
-        rotation: -10,       // Start with a bit more tilt than the CSS has
-        duration: 1.5,       // Take 1.5 seconds to settle
-        stagger: 0.1,        // One by one
-        ease: "expo.out",    // The "luxury" feeling curve (fast then slow)
-    });
+    y: 100,
+    // (i) is the index of the card (0, 1, 2...)
+    rotation: (i) => {
+        const tilts = [10, -15, -18, 5]; // Manually set the "vibe" for each card
+        return tilts[i % tilts.length]; // Cycle through them
+    },
+    duration: 1.8,
+    stagger: 0,
+    ease: "expo.out",
+});
 });
 
 const nav = document.querySelector('.navbar');
@@ -192,7 +196,7 @@ navItems.forEach(item => {
   item.addEventListener('mouseenter', () => {
     // Kill any running animation to prevent fighting
     gsap.to(wrapper, {
-      y: -48,
+      y: -47,
       duration: 0.5,
       ease: "back.out(1.7)",
       overwrite: true // Ensures smooth transition if you hover quickly
@@ -208,3 +212,109 @@ navItems.forEach(item => {
     });
   });
 });
+
+// humberger animation
+// Make sure this is at the very top of your JS
+gsap.registerPlugin(); 
+
+const menuToggle = document.querySelector('.menu-toggle');
+const closeBtn = document.querySelector('.close-menu');
+const fullMenu = document.querySelector('.full-menu');
+
+// Create the timeline
+const menuTl = gsap.timeline({ 
+  paused: true,
+  onStart: () => {
+    // Enable clicks when opening
+    gsap.set(fullMenu, { pointerEvents: 'auto' });
+  },
+  onReverseComplete: () => {
+    // Disable clicks when closed so you can click things behind it
+    gsap.set(fullMenu, { pointerEvents: 'none' });
+  }
+});
+
+// The Animation
+menuTl.to(fullMenu, {
+  autoAlpha: 1, // This handles both opacity and visibility:visible
+  duration: 0.4,
+  ease: "power2.inOut"
+});
+
+menuTl.from(".nav_menu-vertical .nav_item", {
+  y: 40,
+  opacity: 1,
+  stagger: 0.1,
+  duration: 0.4,
+  ease: "back.out(1.7)"
+}, "-=0.2");
+
+// Event Listeners
+menuToggle.addEventListener('click', () => {
+  console.log("Menu opening..."); // Check your console to see if this prints
+  menuTl.play();
+});
+
+closeBtn.addEventListener('click', () => {
+  menuTl.reverse();
+});
+
+// logo animation at the footer
+const footer = document.querySelector('.footer-top');
+const logoSrc = "./assets/logo.svg"; // Path to your logo
+
+let lastMouseX = 0;
+let lastMouseY = 0;
+const threshold = 200; // New logo every 50px of movement
+
+footer.addEventListener("mousemove", (e) => {
+  const rect = footer.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+
+  // Calculate distance from last logo spawn
+  const distance = Math.hypot(x - lastMouseX, y - lastMouseY);
+
+  if (distance > threshold) {
+    createLogo(x, y);
+    lastMouseX = x;
+    lastMouseY = y;
+  }
+});
+
+function createLogo(x, y) {
+
+const colors = ['#f8b4f4', '#ff5c35', '#7B61FF', '#ffffff', '#000000']; 
+  const randomColor = colors[Math.floor(Math.random() * colors.length)];
+  
+  const img = document.createElement("img");
+  img.src = logoSrc;
+  img.classList.add("trail-logo");
+  
+  // 2. Apply the random color to the logo's background
+  img.style.backgroundColor = randomColor;
+  img.src = logoSrc;
+  img.classList.add("trail-logo");
+  img.style.left = `${x}px`;
+  img.style.top = `${y}px`;
+  footer.appendChild(img);
+
+  // Create a timeline so we can control the "Stay" time
+  const tl = gsap.timeline({
+    onComplete: () => img.remove()
+  });
+
+  tl.fromTo(img, 
+    { scale: 0, rotation: gsap.utils.random(-20, 20), opacity: 0 }, 
+    { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.7)" }
+  );
+
+  // This adds a "wait" period of 1 second before the next animation starts
+  tl.to(img, {
+    opacity: 0,
+    scale: 0.8,
+    y: -20,       // Slight float upward makes it feel more "ghostly"
+    duration: 1.5, // Slow fade out
+    delay: 1       // <--- CHANGE THIS to control how long it stays solid
+  });
+}
