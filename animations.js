@@ -318,3 +318,68 @@ const colors = ['#f8b4f4', '#ff5c35', '#7B61FF', '#ffffff', '#000000'];
     delay: 1       // <--- CHANGE THIS to control how long it stays solid
   });
 }
+
+
+// work card arrow animation
+const cards = document.querySelectorAll('.work-card');
+
+cards.forEach(card => {
+  const arrowInner = card.querySelector('.inner-arrow');
+  
+  const arrowTl = gsap.timeline({ paused: true });
+
+  arrowTl
+    // 1. Shoot out (top right)
+    .to(arrowInner, {
+      x: 30,
+      y: -30,
+      opacity: 0,
+      duration: 0.2,
+      ease: "power2.in"
+    })
+    // 2. Teleport (bottom left)
+    .set(arrowInner, {
+      x: -30,
+      y: 30,
+      opacity: 0
+    })
+    // 3. Slide back in
+    .to(arrowInner, {
+      x: 0,
+      y: 0,
+      opacity: 1,
+      duration: 0.3,
+      ease: "back.out(2)"
+    });
+
+  card.addEventListener('mouseenter', () => arrowTl.restart());
+});
+
+
+// work card section video autoplay and remove the poster
+function handleMobileVideo() {
+  const videos = document.querySelectorAll('video');
+  const isMobile = window.innerWidth <= 768;
+
+  videos.forEach(video => {
+    if (isMobile) {
+      // 1. Remove the poster to allow immediate playback
+      video.removeAttribute('poster');
+      
+      // 2. Force the autoplay attributes
+      video.setAttribute('autoplay', 'true');
+      
+      // 3. Manually trigger play (necessary for some mobile browsers)
+      video.play().catch(error => {
+        console.log("Autoplay was prevented, but poster is removed.");
+      });
+    }
+  });
+}
+
+// Run on load
+handleMobileVideo();
+
+// Run on resize (optional, in case they flip their phone to landscape)
+window.addEventListener('resize', handleMobileVideo);
+

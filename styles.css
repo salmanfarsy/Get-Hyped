@@ -714,13 +714,18 @@ color: color-mix(in srgb, var(--card-bg), black 10%);
 }
 
 /* 3. Staggered Positioning */
-.work-card.offset-up { transform: translateY(-60px); }
-.work-card.offset-more { transform: translateY(-120px); }
-
+.work-card.offset-up { translate: 0 -60px; }
+.work-card.offset-more { translate: 0 -120px; }
 /* 4. Color Themes */
 .card-orange { border-color: #f04e23; --card-color: #f04e23; }
 .card-blue   { border-color: #007aff; --card-color: #007aff; }
 .card-green  { border-color: #24ac64; --card-color: #24ac64; }
+
+
+/* work card little titl animation */
+.work-card:hover{
+  transform: rotate3d(1, 0, 1, -10deg);
+}
 
 /* 5. Video & Content Layering */
 .video-container {
@@ -797,9 +802,9 @@ color: color-mix(in srgb, var(--card-bg), black 10%);
 }
 /* 8. Hover Animations */
 
-.work-card:hover .arrow-icon {
+/* .work-card:hover .arrow-icon {
   transform: scale(1.1) rotate(45deg);
-}
+} */
 /* ---------bit of work card animation--------- */
 
 
@@ -912,9 +917,7 @@ color: color-mix(in srgb, var(--card-bg), black 10%);
   transition: filter 0.3s ease;
 }
 
-.logo-item:hover img {
-  filter: grayscale(0);
-}
+
 
 
 /* --------------------footer style ----------- */
@@ -987,11 +990,13 @@ color: color-mix(in srgb, var(--card-bg), black 10%);
 .trail-logo {
   position: absolute;
   width: 10%; /* Adjust size */
+ clip-path: polygon(0% 25%, 100% 0%, 100% 100%, 0% 100%);
   pointer-events: none;
   z-index: 10;
   transform: translate(-50%, -50%); /* Keeps it centered on cursor */
 }
 /* ------------footer logo animation--------------- */
+
 .nav-links {
   display: flex;
   gap: 10px;
@@ -1023,6 +1028,10 @@ color: color-mix(in srgb, var(--card-bg), black 10%);
   object-fit: contain;
   animation: rotate 10s linear infinite;
 }
+/* ------------------nav links animation----------------------- */
+
+/* ------------------nav links----------------------- */
+
 
 @keyframes rotate {
   from { transform: rotate(0deg); }
@@ -1048,5 +1057,429 @@ color: color-mix(in srgb, var(--card-bg), black 10%);
 @media (max-width: 768px) {
   .nav_menu {
     display: none;
+  }
+}
+
+/* hero section for mobile */
+@media (max-width: 768px) {
+  /* 1. Hero Text Scaling */
+  .hero-section h1 {
+    /* Fluid size: scales between 40px and 80px based on width */
+    font-size: clamp(2.5rem, 10vw, 5rem) !important; 
+    line-height: 1.05;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .hero-section h2 {
+    font-size: clamp(1.1rem, 5vw, 1.8rem) !important;
+    line-height: 1.3;
+    width: 100%;
+  }
+
+  /* 2. Hero Section Layout */
+  .hero-section {
+    padding: 80px 20px; /* Side padding so text doesn't touch the glass */
+    min-height: auto;   /* Let content define height so it doesn't overflow */
+  }
+
+  /* 3. The Work Grid - Remove Desktop Offsets */
+  .work-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 20px;
+  }
+
+  /* This 'neutralizes' the staggered desktop look */
+  .work-card.offset-up, 
+  .work-card.offset-more {
+    transform: translateY(0) !important;
+    translate: 0 0 !important;
+  }
+
+  /* 4. Navigation & Footer */
+  .nav-links {
+    gap: 15px;
+  }
+  
+  /* Make the interactive elements a bit larger for thumbs */
+  .nav-link, .arrow-icon {
+    transform: scale(0.9); /* Slightly smaller UI to fit more text */
+  }
+}
+/* 
+hero card responsive */
+/* Tablet: Hide the 4th card, leaving 3 fanned out */
+@media (max-width: 1024px) {
+  .card:nth-child(4) {
+    display: none;
+  }
+  
+  /* Optional: Adjust the container so 3 cards stay centered */
+  .card-container {
+    justify-content: center;
+    gap: 10px; 
+  }
+}
+
+/* Mobile: Hide the 3rd card, leaving only 2 fanned out */
+@media (max-width: 768px) {
+  .card:nth-child(3) {
+    display: none;
+  }
+
+  /* Reset the tilt of the remaining 2 slightly so they don't 
+     lean too far off the mobile screen */
+  .card:nth-child(1) { 
+    transform: rotate(-4deg) translateY(10px) !important; 
+  }
+  .card:nth-child(2) { 
+    transform: rotate(4deg) translateY(0px) !important; 
+  }
+
+  .card-container {
+    padding: 20px;
+    gap: 5px;
+  }
+}
+
+/* Small Phones: If 2 cards are still too wide, we keep only 1 */
+@media (max-width: 480px) {
+  .card:nth-child(2) {
+    display: none;
+  }
+  
+  .card:nth-child(1) {
+    transform: rotate(0deg) translateY(0px) !important;
+    width: 90vw; /* Make the single card take up the screen */
+  }
+}
+
+/* work top text mobile */
+@media (max-width: 768px) {
+  .work_top {
+    width: 100%;
+    padding: 40px 20px; /* Space on the sides so it doesn't touch the phone edges */
+    box-sizing: border-box;
+  }
+
+  .work_top h1 {
+    /* clamp(min, preferred, max) */
+    /* 1.8rem is the floor, 6vw scales with width, 3rem is the ceiling */
+    font-size: clamp(1.8rem, 6vw, 3rem) !important;
+    
+    line-height: 1.2;
+    font-weight: 800;
+    text-align: left; /* Keep it left-aligned for that high-end 'editorial' look */
+    width: 100%;
+    margin: 0;
+    
+    /* This ensures long Dutch words don't break weirdly */
+    hyphens: auto;
+    word-break: break-word;
+  }
+}
+/* 
+work section image to video */
+/* 1. Desktop Styles (Default) */
+.mobile-only {
+  display: none;
+}
+
+/* 2. Mobile Styles */
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none !important;
+  }
+  
+  .mobile-only {
+    display: block !important;
+    width: 50%;
+    height: auto;
+    border-radius: 20px; /* Keep it consistent with your card style */
+    object-fit: cover;
+  }
+
+  .work_image-wrapper {
+    width: 100%;
+    aspect-ratio: 9 / 16; /* Gives it that vertical TikTok/Reel shape */
+    overflow: hidden;
+  }
+}
+
+
+/* expert card sectiono phone */
+@media (max-width: 768px) {
+
+  .expertise_card {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: auto;
+    margin: 20px auto;
+    padding: 0px 20px;
+    gap: 0; /* We will use margins for spacing instead */
+    top: 20px; /* Adjust sticky top for smaller screens */
+  }
+
+  /* MAGIC TRICK: This makes the children of card_left (Title & Body) 
+     behave as direct children of the Card itself */
+  .card_left {
+    display: contents;
+  }
+
+  /* 1. TITLE (First) */
+  .card_header {
+    order: 1;
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  .card_title {
+    font-size: clamp(2.5rem, 10vw, 4rem) !important;
+   margin: 0;
+    margin-bottom: 10px;
+    
+  }
+
+  /* 2. VIDEO (Middle) */
+  .card_right {
+    order: 2;
+    width: 100%;
+    justify-content: flex-start;
+    /* margin: 30px 0; */
+  }
+
+  .video_wrapper {
+    width: 100%;
+    max-width: 190px; /* Keeps it from getting too huge */
+    height: 250px;
+    transform: rotate(2deg); /* Slightly less tilt for mobile */
+    border: 5px solid #ff5722;
+  }
+
+  /* 3. BODY (Bottom) */
+  .card_body {
+    order: 3;
+    width: 100%;
+  }
+
+  .card_body h3 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+  }
+
+  .card_body p {
+    font-size: 1rem;
+    margin-bottom: 30px;
+    max-width: 100%;
+  }
+
+  /* Hide the big background number to clean up the mobile UI */
+  .card_number {
+    display: none;
+  }
+
+  /* Full-width button for mobile */
+  .btn-orange {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+  
+  }
+  .tag{
+    margin-bottom:0 ;
+    margin-top: 10px;
+  }
+}
+
+/* --------------this is same expert thing with another style-------- */
+@media (max-width: 768px) {
+  .logo-track {
+    /* Tighten the gap so the logos feel closer together */
+    gap: 20px;
+  }
+
+  .logo-item {
+    /* Reduce dimensions significantly for mobile */
+    min-width: 140px; 
+    height: 140px;
+    
+    /* Smaller padding so the logo has more room inside the box */
+    padding: 20px;
+    border-radius: 16px;
+    
+    /* Optional: Thinner border for a cleaner look */
+    border: 1px solid rgba(0,0,0,0.2);
+  }
+
+  .logo-item img {
+    /* Scale the actual logo image down proportionally */
+    max-width: 100px;
+  }
+}
+
+/* ----------for the footer section responsive------------ */
+.mobile-cta-btn {
+  display: none;
+}
+@media (max-width: 768px) {
+  /* 1. Hide the desktop-only section */
+  .footer-top {
+    display: none !important;
+  }
+
+  /* 2. Main Container Reset */
+  .footer {
+    padding: 40px 20px;
+    background-color: #faf4ec; /* Matches your site's light beige */
+    text-align: center;
+  }
+
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  /* 3. Logo & New Clickable Button */
+  .footer-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .footer-logo img {
+    max-width: 240px;
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  .mobile-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background-color: #ff5722; /* High-energy orange */
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 10px 10px 10px 20px; /* Padding adjusted for the icon bubble */
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(255, 87, 34, 0.2);
+    transition: transform 0.2s ease;
+  }
+
+  .fire-icon {
+    background: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+  }
+
+  /* 4. The Pill Navigation (Expertises, Work, etc.) */
+  .footer-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 30px;
+  }
+
+  .nav_menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .nav_item {
+    background: white;
+    padding: 8px 18px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: black;
+    font-size: 0.85rem;
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  }
+
+  /* 5. Social Icons (Circular White Buttons) */
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .social-icons a {
+    width: 44px;
+    height: 44px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  }
+
+  /* 6. Contact & Copyright (Stacked Text) */
+  .footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .contact-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .contact-item strong {
+    display: none; /* Usually hidden in this minimalist mobile view */
+  }
+
+  .contact-item p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #333;
+    opacity: 0.8;
+  }
+
+  .footer-copyright {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    font-size: 0.8rem;
+    color: #888;
+  }
+
+  .footer-copyright a {
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 5px;
+  }
+
+  /* 7. Sticker/Badge handling */
+  .footer-badge {
+    margin-top: 20px;
+    width: 100px;
+    opacity: 0.9;
   }
 }
