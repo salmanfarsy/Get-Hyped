@@ -26,7 +26,7 @@ body {
   font-size: var(--base-font-size);
   background-color: var( --color-light-bg);
   color: var(--color-dark);
-  line-height: 1.5;
+  line-height: 1;
   overflow-x: hidden; /* Prevents horizontal scroll bugs during animations */
 }
 .navbar {
@@ -297,6 +297,7 @@ body {
   justify-content: space-between;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.05);
+  cursor: pointer;
   
   /* The "Initial Tilt" Logic */
   transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
@@ -306,7 +307,8 @@ body {
 }
 .card .bottom-text h3{
 border-bottom: 1px solid black;
-padding: 2px;
+padding: 5px;
+margin: 5px;
 }
 /* Individual Rotations to make them "fan out" */
 .card:nth-child(1) { transform: rotate(-6deg) translateY(20px); background-color: var(--color-blue); }
@@ -449,6 +451,7 @@ padding: 2px;
 
 /* card animation for expertise section */
 .expertise_section {
+  width: 100%;
   padding: 5vh 0;
   background-color: #faf4ec;
   display: flex;
@@ -458,6 +461,7 @@ padding: 2px;
 }
 
 .expertise_card {
+  width: 90%;
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -725,6 +729,7 @@ color: color-mix(in srgb, var(--card-bg), black 10%);
 /* work card little titl animation */
 .work-card:hover{
   transform: rotate3d(1, 0, 1, -10deg);
+  cursor: pointer;
 }
 
 /* 5. Video & Content Layering */
@@ -951,10 +956,30 @@ color: color-mix(in srgb, var(--card-bg), black 10%);
 .footer-bottom {
   position: relative;
   background-color: #ede8e0; /* Slightly darker cream */
-  padding: 100px 5% 40px 5%;
+  padding: 20px 5% 40px 5%;
   margin-top: 50px;
 }
-
+.footer .nav_menu{
+  background-color: transparent;
+}
+.social-links{
+  margin: 20px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+   
+}
+.social-icons a{
+  margin: 10px;
+   
+}
+.social-icons a:hover img{
+  transform: scale(1.2);
+}
+.social-icons img{
+  width: 15px;
+transition: all 0.5s ease;
+}
 /* The Slant Effect */
 .footer-bottom::before {
   content: '';
@@ -986,6 +1011,19 @@ color: color-mix(in srgb, var(--card-bg), black 10%);
   display: flex;
   gap: 80px;
 }
+.footer-copyright{
+  display: flex;
+    justify-content: flex-end;
+}
+.footer-copyright a{
+  text-decoration: none;
+  color: inherit;
+}
+.footer-copyright span{
+  color:dimgray;
+  font-size: 10px;
+  margin: 0 50px;
+}
 /* ------------footer logo animation--------------- */
 .trail-logo {
   position: absolute;
@@ -1014,7 +1052,7 @@ color: color-mix(in srgb, var(--card-bg), black 10%);
 }
 
 .contact-item {
-  margin-bottom: 30px;
+  margin-bottom: 5px;
   font-size: 0.9rem;
   line-height: 1.6;
 }
@@ -1026,7 +1064,7 @@ color: color-mix(in srgb, var(--card-bg), black 10%);
   right: 10%;
   width: 120px;
   object-fit: contain;
-  animation: rotate 10s linear infinite;
+  /* animation: rotate 10s linear infinite; */
 }
 /* ------------------nav links animation----------------------- */
 
@@ -1203,7 +1241,6 @@ work section image to video */
 
   .work_image-wrapper {
     width: 100%;
-    aspect-ratio: 9 / 16; /* Gives it that vertical TikTok/Reel shape */
     overflow: hidden;
   }
 }
@@ -1258,6 +1295,9 @@ work section image to video */
     transform: rotate(2deg); /* Slightly less tilt for mobile */
     border: 5px solid #ff5722;
   }
+  .border-pink { border-color:var(--color-light); }
+.border-blue { border-color:var(--color-light); }
+.border-green { border-color:var(--color-light); }
 
   /* 3. BODY (Bottom) */
   .card_body {
@@ -1435,7 +1475,9 @@ work section image to video */
     font-size: 1rem;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
   }
-
+  .social-links{
+    flex-direction: column;
+  }
   /* 6. Contact & Copyright (Stacked Text) */
   .footer-contact {
     display: flex;

@@ -37,19 +37,29 @@ window.addEventListener('scroll', () => {
   }
 });
 
-gsap.utils.toArray(".expertise_card").forEach((card, i) => {
-  gsap.to(card, {
-    scale: 1,
-    opacity: 1,
+gsap.utils.toArray(".expertise_card").forEach((card, i, cards) => {
+  const isLast = i === cards.length - 1;
+
+  // Create a timeline for each card
+  const tl = gsap.timeline({
     scrollTrigger: {
       trigger: card,
-      start: "top 10%", // When the card is sticky
+      start: "top 10%", // When card hits the sticky point
       endTrigger: ".expertise_section",
       end: "bottom bottom",
       scrub: true,
       pinSpacing: false,
     }
   });
+
+  // If this isn't the last card, make it shrink as the NEXT one comes in
+  if (!isLast) {
+    tl.to(card, {
+      scale: 0.9,      // Shrinks slightly
+      opacity: 1,    // Fades out
+      ease: "none"
+    });
+  }
 });
 const workCards = document.querySelectorAll('.work-card');
 
@@ -284,7 +294,7 @@ footer.addEventListener("mousemove", (e) => {
 
 function createLogo(x, y) {
 
-const colors = ['#f8b4f4', '#ff5c35', '#7B61FF', '#ffffff', '#000000']; 
+const colors = ['#f8b4f4', '#ff5c35', '#7B61FF', '#ffffff', '#75f0b6ff']; 
   const randomColor = colors[Math.floor(Math.random() * colors.length)];
   
   const img = document.createElement("img");
@@ -383,3 +393,13 @@ handleMobileVideo();
 // Run on resize (optional, in case they flip their phone to landscape)
 window.addEventListener('resize', handleMobileVideo);
 
+// the footer badge animation
+gsap.to(".footer-badge svg", {
+  rotation: 20, // Rotate clockwise to 15 degrees
+  scrollTrigger: {
+    trigger: ".footer", // Starts animating when the footer enters
+    start: "top bottom", 
+    end: "bottom top",
+    scrub: 1, // Smoothly follows the scrollbar
+  }
+});
