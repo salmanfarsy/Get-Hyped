@@ -1,2 +1,3 @@
-# Get-Hyped
-Animation project
+# I developed this website using vanilla HTML, CSS, and JavaScript, along with the GSAP animation library. As the preferred tech stack wasn’t specified, I chose a straightforward approach to ensure clarity and efficiency in the implementation.
+
+# That said, I also have experience working with React and Next.js, and I’d be happy to rebuild or adapt the project using those technologies (or Tailwind CSS) if that better aligns with your requirements.
