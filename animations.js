@@ -316,13 +316,13 @@ const colors = ['#f8b4f4', '#ff5c35', '#7B61FF', '#ffffff', '#75f0b6ff'];
 
   tl.fromTo(img, 
     { scale: 0, rotation: gsap.utils.random(-20, 20), opacity: 0 }, 
-    { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.7)" }
+    { scale: 10, opacity: 1, duration: 0.4, ease: "back.out(1.7)" }
   );
 
   // This adds a "wait" period of 1 second before the next animation starts
   tl.to(img, {
     opacity: 0,
-    scale: 0.8,
+    scale: 1,
     y: -20,       // Slight float upward makes it feel more "ghostly"
     duration: 1.5, // Slow fade out
     delay: 1       // <--- CHANGE THIS to control how long it stays solid
